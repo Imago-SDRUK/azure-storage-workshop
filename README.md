@@ -1,4 +1,5 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18771673.svg)](https://doi.org/10.5281/zenodo.18771673)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20494748.svg)](https://doi.org/10.5281/zenodo.20494748)
+
 # Azure Storage Workshop — Imago Team
 
 This repository contains the materials for a short, hands-on workshop teaching the
