@@ -1,0 +1,10 @@
+_site
+.DS_Store
+.idea
+.vscode
+/track-a/
+/track-b/
+prerequisites.qmd
+index.qmd
+/.quarto/
+**/*.quarto_ipynb

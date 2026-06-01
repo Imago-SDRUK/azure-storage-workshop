@@ -1,0 +1,47 @@
+
+project:
+  type: book
+  output-dir: ./docs
+
+book:
+  title: "Azure Storage Workshop — Imago Team"
+  author: "Behzad Valipour Sh."
+  date: today
+  page-footer:
+    left: "Imago | UKRI Imagery Data Service"
+    right: "This book was built with https://quarto.org/Quarto</a>."
+  cover-image: assets/Imago-logo.png
+  favicon: assets/Imago-logo.png
+  repo-url: https://github.com/Imago-SDRUK/github_training
+  repo-branch: main
+  repo-actions: [edit, issue]
+
+  chapters:
+    - index.qmd
+    - prerequisites.qmd
+
+    - part: "Track A — Azure Storage Explorer (no coding)"
+      chapters:
+        - track-a/index.qmd
+        - track-a/install.qmd
+        - track-a/connect.qmd
+        - track-a/browse-download.qmd
+
+    - part: "Track B — Python (azure-storage-blob)"
+      chapters:
+        - track-b/index.qmd
+        - track-b/setup.qmd
+        - track-b/authenticate.qmd
+        - track-b/list-download.qmd
+
+# Global numbering
+number-sections: true
+number-depth: 2
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: left
+    toc-depth: 2

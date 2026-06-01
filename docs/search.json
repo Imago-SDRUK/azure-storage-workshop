@@ -1,0 +1,442 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Azure Storage Workshop",
+    "section": "",
+    "text": "What this covers\nWelcome! This is a short, hands-on workshop for the Imago team on how to get to files we keep in Azure Cloud storage. It’s designed for a mixed audience: you do not need to be a developer to follow along.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Azure Storage Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#what-this-covers",
+    "href": "index.html#what-this-covers",
+    "title": "Azure Storage Workshop",
+    "section": "",
+    "text": "Where our files live in Azure, in plain terms.\nThe access we’ll hand out to you, and what “read-only” means.\nTwo ways to get the files, depending on how you like to work.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Azure Storage Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#pick-your-track",
+    "href": "index.html#pick-your-track",
+    "title": "Azure Storage Workshop",
+    "section": "Pick your track",
+    "text": "Pick your track\nThere are two parallel tracks. You only need one — pick whichever fits how you like to work. Both get you to the same files.\n\n\n\n\n\n\nNoteTrack A — Azure Storage Explorer (no coding)\n\n\n\nFor everyone who’d rather click than type. A free desktop app from Microsoft that lets you browse our storage like a file explorer and download files with a right-click. → Start Track A\n\n\n\n\n\n\n\n\nNoteTrack B — Python (azure-storage-blob)\n\n\n\nFor developers who want to pull files into scripts and pipelines. We’ll use Microsoft’s official Python library to connect, list files, and download them with runnable code. → Start Track B\n\n\nBefore either track, everyone should read the shared Prerequisites & access page.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Azure Storage Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#sec-terminology",
+    "href": "index.html#sec-terminology",
+    "title": "Azure Storage Workshop",
+    "section": "A quick note on wording",
+    "text": "A quick note on wording\nYou may have heard cloud storage described with words like “buckets” and “objects” — that’s the language Amazon (AWS) and Google Cloud use. Azure uses different words for the same ideas:\n\n\n\nYou might say…\nIn Azure it’s called…\n\n\n\n\nBucket\nContainer\n\n\nObject / file\nBlob\n\n\n(the overall account)\nStorage account\n\n\n\nSo: our files (blobs) are grouped into containers, which all live inside one storage account. We’ll use the Azure words from here on.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Azure Storage Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#scope-and-ground-rules",
+    "href": "index.html#scope-and-ground-rules",
+    "title": "Azure Storage Workshop",
+    "section": "Scope and ground rules",
+    "text": "Scope and ground rules\n\n\n\n\n\n\nImportantThis is a ~1-hour session, and your access is read-only\n\n\n\n\nWe’re aiming to get everyone connected and downloading within the hour, so we keep things deliberately simple.\nThe access we give you is read-only: you can browse and download files, but you cannot upload, change, or delete anything. You don’t have to worry about breaking or overwriting our data — you can’t.\nThis site doubles as a reference: come back to it any time after the session.\n\n\n\nWherever you see something like PLACEHOLDER-..., that’s a real value (an account name, a container name, your SAS URL) that we’ll give you on the day — it’s left blank here on purpose so we don’t publish secrets.\nReady? Head to Prerequisites & access.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Azure Storage Workshop</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html",
+    "href": "prerequisites.html",
+    "title": "Prerequisites & access",
+    "section": "",
+    "text": "How our storage is organised\nRead this page before starting either track. It explains the access we give you and where to find the details you’ll paste into Storage Explorer or your code.\nRecall the wording from the landing page:\nFor this workshop you’ll connect to:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Prerequisites & access</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#how-our-storage-is-organised",
+    "href": "prerequisites.html#how-our-storage-is-organised",
+    "title": "Prerequisites & access",
+    "section": "",
+    "text": "Files (blobs) are grouped into containers, which live inside one storage account.\n\n\n\n\n\nThing\nValue (we’ll give you the real one)\n\n\n\n\nContainer(s) you can read\ndata-storage\n\n\nExample file to download\nHP40-2017.tif\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe container name above is not secret — it’s just a label. The thing that actually grants access is the token below, which is why we hand that out separately and ask you not to share it.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Prerequisites & access</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#the-access-we-provide",
+    "href": "prerequisites.html#the-access-we-provide",
+    "title": "Prerequisites & access",
+    "section": "The access we provide",
+    "text": "The access we provide\nWe’ll give you a read-only SAS URL (SAS = Shared Access Signature). It’s the web address of our container with a time-limited key on the end, so it lets you read files without needing an Azure login of your own. It looks like this:\nhttps://PLACEHOLDER-STORAGE-ACCOUNT.blob.core.windows.net/PLACEHOLDER-CONTAINER-NAME?sp=rl&st=YYYY-MM-DDT10:47:56Z&se=YYYY-MM-DDT20:02:56Z&spr=https&sv=YYYY-MM-DD&sr=c&sig=PLACEHOLDER-SIGNATURE\n\n\n\n\n\n\nImportantWhere to find your SAS URL\n\n\n\nThe SAS URL lives in an internal, Imago-only file — find it here: Imago Azure access details.\nThis link is restricted to the Imago team; you’ll need to be signed in with your Imago account to open it. Don’t copy the URL anywhere public or share it outside the team.\n\n\n\nWhat the “token” part is\nThe bit after the ? is the SAS token — the key itself. You don’t need to pull it out separately; the whole URL is what you’ll paste into Storage Explorer (Track A) or your code (Track B). It’s worth recognising the pieces, though:\n\nsp=rl — the permissions: read + list (this is what makes it read-only).\nse=... — the expiry date/time. After this, the URL stops working.\nsig=... — the signature that actually authorises access. Treat it as secret.\n\n\n\nKeep your SAS URL safe\nThe URL is the key — anyone who has it can read our data until it expires. So:\n\n\n\n\n\n\nImportantTreat your SAS URL like a password\n\n\n\n\nDon’t paste it into emails, chat, screenshots, or commit it to a repo.\nFor code (Track B), don’t hard-code it — store it in an environment variable (we show how on the setup page) so it never lives in your source.\nIn Storage Explorer (Track A), the app stores the connection for you — just don’t share screenshots that reveal the URL.\nIt expires (se= in the URL) — if it stops working, it has probably expired. Ask us for a fresh one.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Prerequisites & access</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#what-read-only-means",
+    "href": "prerequisites.html#what-read-only-means",
+    "title": "Prerequisites & access",
+    "section": "What “read-only” means",
+    "text": "What “read-only” means\nYour SAS URL grants read + list permissions only (sp=rl in it — read, list). In practice:\n\n\n\nYou can\nYou can’t\n\n\n\n\nSee the list of files\nUpload new files\n\n\nOpen / preview files\nEdit or overwrite files\n\n\nDownload files\nDelete files\n\n\n\nSo you can explore freely — there’s nothing here you can break.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Prerequisites & access</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#what-you-need-installed",
+    "href": "prerequisites.html#what-you-need-installed",
+    "title": "Prerequisites & access",
+    "section": "What you need installed",
+    "text": "What you need installed\nThis depends on your track. You can sort this during the session, but installing ahead of time means you’ll spend the hour actually using the storage.\n\n\n\n\n\n\nTipTrack A — Azure Storage Explorer\n\n\n\nA free Microsoft desktop app (Windows, macOS, Linux). Install steps are on the Track A install page.\n\n\n\n\n\n\n\n\nTipTrack B — Python\n\n\n\nPython 3.8+ and the azure-storage-blob package. Setup is on the Track B setup page.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Prerequisites & access</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#a-note-on-other-auth-methods",
+    "href": "prerequisites.html#a-note-on-other-auth-methods",
+    "title": "Prerequisites & access",
+    "section": "A note on other auth methods",
+    "text": "A note on other auth methods\nWe’ve chosen a read-only SAS URL because it’s the simplest thing to hand to a group and it’s read-only by design. You may see two other approaches in Azure docs:\n\nAzure AD / Entra ID (DefaultAzureCredential, az login) — more auditable, but needs each person to have an Azure account with a role assigned.\nConnection string / account key — grants full account access, so it’s not a good fit for read-only group access.\n\nFor this workshop, stick with the SAS URL we provide. Both tracks show where the alternatives would slot in, in case you use them elsewhere.\n\nGot your SAS URL? Pick your track: Track A · Track B.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Prerequisites & access</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/index.html",
+    "href": "track-a/index.html",
+    "title": "Track A — Azure Storage Explorer",
+    "section": "",
+    "text": "Who this track is for\nAnyone who’d rather click than type. If you don’t write code (or just don’t want to for this), this is your track. We’ll use Azure Storage Explorer — a free Microsoft desktop app that shows our cloud storage like a familiar file explorer, with folders to open and files to download.\nDevelopers are welcome here too, but if you’d rather pull files into a script, see Track B.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Track A — Azure Storage Explorer</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/index.html#what-youll-do",
+    "href": "track-a/index.html#what-youll-do",
+    "title": "Track A — Azure Storage Explorer",
+    "section": "What you’ll do",
+    "text": "What you’ll do\nThree short steps:\n\nInstall Storage Explorer — the free Microsoft app.\nConnect — paste in the read-only access we gave you.\nBrowse & download — find files and save them to your computer.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Track A — Azure Storage Explorer</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/index.html#before-you-start",
+    "href": "track-a/index.html#before-you-start",
+    "title": "Track A — Azure Storage Explorer",
+    "section": "Before you start",
+    "text": "Before you start\nMake sure you’ve read Prerequisites & access and have your read-only SAS URL.\n\n\n\n\n\n\nNote\n\n\n\nRemember your access is read-only — you can open and download anything in here, but you can’t change or delete it. Explore freely.\n\n\n→ Start with Install Storage Explorer.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Track A — Azure Storage Explorer</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/install.html",
+    "href": "track-a/install.html",
+    "title": "Step 1 — Install Storage Explorer",
+    "section": "",
+    "text": "Download and install\nAzure Storage Explorer is a free desktop app from Microsoft. It runs on Windows, macOS, and Linux.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Step 1 — Install Storage Explorer</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/install.html#download-and-install",
+    "href": "track-a/install.html#download-and-install",
+    "title": "Step 1 — Install Storage Explorer",
+    "section": "",
+    "text": "Go to the official download page: https://azure.microsoft.com/products/storage/storage-explorer\nClick the download button. \nChoose the version for your operating system and download the installer. \nRun the installer and follow the prompts — the defaults are fine.\nOpen Microsoft Azure Storage Explorer once it’s installed.\n\n\n\n\n\n\n\nImportantIf Storage Explorer won’t start — the .NET 10 fix\n\n\n\n\n\nSome people hit this error the first time they launch Storage Explorer:\n\n“The authentication library used by Storage Explorer has failed to start properly. Please ensure you have .NET 10 installed. Error: Hub Controller process exited prematurely with exit code 131.”\n\nWhy it happens: Storage Explorer needs .NET 10, but it only looks in specific install locations. If .NET was installed via a package manager (Homebrew, mise, etc.) or isn’t installed at all, Storage Explorer can’t find it and fails to start.\n\nFix for macOS 🍎\n\nGo to https://dotnet.microsoft.com/download/dotnet/10.0.\nDownload the .NET Runtime (not the SDK) for macOS.\nPick the matching architecture:\n\nARM64 → Apple Silicon Macs (M1/M2/M3/M4)\nx64 → Intel Macs\n\nRun the Microsoft installer — it places .NET at /usr/local/share/dotnet, which is where Storage Explorer expects it.\nRelaunch Azure Storage Explorer.\n\n⚠️ Also check that your Storage Explorer download matches your Mac’s architecture (ARM64 vs x64). The wrong build can stop .NET being detected even when it’s installed correctly.\n✅ Confirmed working.\n\n\nFix for Windows 🪟\n\nGo to https://dotnet.microsoft.com/download/dotnet/10.0.\nDownload the .NET Runtime for Windows (x64 for most systems).\nRun the installer.\nIf it still fails after installing .NET:\n\nFully uninstall Azure Storage Explorer.\nDelete the leftover app-data folder at %AppData%\\StorageExplorer.\nReinstall the latest version from https://azure.microsoft.com/products/storage/storage-explorer.\n\nOn a corporate machine without admin rights, ask IT to install the .NET 10 Runtime for you.\n\n⚠️ The ASP.NET runtime is not required — the standard .NET Runtime is enough.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Step 1 — Install Storage Explorer</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/install.html#what-youll-see-on-first-launch",
+    "href": "track-a/install.html#what-youll-see-on-first-launch",
+    "title": "Step 1 — Install Storage Explorer",
+    "section": "What you’ll see on first launch",
+    "text": "What you’ll see on first launch\nWhen the app opens you’ll see a Connect dialog (a panel with a power-plug icon) and an empty Explorer pane on the left. That’s expected — we haven’t connected to anything yet.\n\n\n\n\n\n\n\nTip\n\n\n\nYou do not need to sign in with a Microsoft account to follow this workshop. We connect using the read-only token we gave you, which doesn’t require a login. If the app prompts you to “Sign in”, you can close that prompt.\n\n\n→ Next: Connect with your access.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Step 1 — Install Storage Explorer</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/connect.html",
+    "href": "track-a/connect.html",
+    "title": "Step 2 — Connect with your access",
+    "section": "",
+    "text": "When it works\nNow we’ll tell Storage Explorer how to reach our storage, using the read-only access from Prerequisites & access.\nA SAS URL is the container address with the token on the end. It looks like:\nSteps:\nYou’ll see your Display name appear in the left-hand Explorer pane, usually under a section like Local & Attached → Storage Accounts → (SAS-Attached Services) → Blob Containers. Click it to open the container.\n→ Next: Browse & download files.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Step 2 — Connect with your access</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/browse-download.html",
+    "href": "track-a/browse-download.html",
+    "title": "Step 3 — Browse & download files",
+    "section": "",
+    "text": "Browse the container\nYou’re connected — now let’s find files and save them to your computer.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Step 3 — Browse & download files</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/browse-download.html#browse-the-container",
+    "href": "track-a/browse-download.html#browse-the-container",
+    "title": "Step 3 — Browse & download files",
+    "section": "",
+    "text": "In the left Explorer pane, click Storage Accounts and then Blob Containers and select connected container (e.g. data-storage).\nThe main panel fills with the contents of the container - a list of files and folders.\nIf you see folder-like entries, double-click to go in. (In Azure these “folders” are really just / in the file names, but they behave like folders here. e.g. Embedding/2017/)\n\n\n\n\n\n\n\nTip\n\n\n\nUse the filter box above the file list to jump to a file by name — handy when a container has lots of blobs. Try typing part of HP40-2017.tif.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Step 3 — Browse & download files</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/browse-download.html#download-a-file",
+    "href": "track-a/browse-download.html#download-a-file",
+    "title": "Step 3 — Browse & download files",
+    "section": "Download a file",
+    "text": "Download a file\n\nClick the file you want (e.g. HP40-2017.tif).\nClick Download in the toolbar — or right-click the file and choose Download.\nPick where to save it on your computer, and confirm.\nProgress shows in the Activities panel at the bottom; “Transfer successful” means it’s done.\n\nTo grab several at once, Ctrl-click (Windows/Linux) or Cmd-click (macOS) to select multiple files, then Download.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Step 3 — Browse & download files</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/browse-download.html#preview-without-downloading",
+    "href": "track-a/browse-download.html#preview-without-downloading",
+    "title": "Step 3 — Browse & download files",
+    "section": "Preview without downloading",
+    "text": "Preview without downloading\nDouble-click a file to open a preview where supported (text, CSV, images), so you can check you’ve got the right one before downloading.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Step 3 — Browse & download files</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/browse-download.html#what-you-cant-do-and-thats-fine",
+    "href": "track-a/browse-download.html#what-you-cant-do-and-thats-fine",
+    "title": "Step 3 — Browse & download files",
+    "section": "What you can’t do (and that’s fine)",
+    "text": "What you can’t do (and that’s fine)\nBecause your access is read-only, the Upload, Delete, Rename, and New Folder buttons either won’t appear or will fail with a permissions error. That’s expected — there’s nothing here you can break.\n\n\n\n\n\n\nNote\n\n\n\nIf you genuinely need a file added to the storage, that’s a job for the team who manages it — ask in the Imago channel rather than trying to upload.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Step 3 — Browse & download files</span>"
+    ]
+  },
+  {
+    "objectID": "track-a/browse-download.html#youre-done",
+    "href": "track-a/browse-download.html#youre-done",
+    "title": "Step 3 — Browse & download files",
+    "section": "You’re done 🎉",
+    "text": "You’re done 🎉\nYou’ve connected to Azure storage and downloaded a file — no code required. This page stays here as a reference; come back any time.",
+    "crumbs": [
+      "Track A — Azure Storage Explorer (no coding)",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Step 3 — Browse & download files</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/index.html",
+    "href": "track-b/index.html",
+    "title": "Track B — Python",
+    "section": "",
+    "text": "Who this track is for\nDevelopers who want to pull files from our Azure storage into scripts, notebooks, or pipelines. We’ll use Microsoft’s official Python library, azure-storage-blob, to connect, list what’s there, and download files.\nIf you’d rather just click to download, Track A does the same thing through a desktop app — no code needed.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Track B — Python</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/index.html#what-youll-do",
+    "href": "track-b/index.html#what-youll-do",
+    "title": "Track B — Python",
+    "section": "What you’ll do",
+    "text": "What you’ll do\n\nSet up — install Python and azure-storage-blob.\nAuthenticate — connect using the read-only SAS URL.\nList & download — list containers/blobs and download files, with runnable code.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Track B — Python</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/index.html#before-you-start",
+    "href": "track-b/index.html#before-you-start",
+    "title": "Track B — Python",
+    "section": "Before you start",
+    "text": "Before you start\nRead Prerequisites & access and have your read-only SAS URL to hand (it already contains the storage account and container, so it’s the only thing you need):\nhttps://PLACEHOLDER-STORAGE-ACCOUNT.blob.core.windows.net/PLACEHOLDER-CONTAINER-NAME?sp=rl&...&sig=PLACEHOLDER-SIGNATURE\n\n\n\n\n\n\nImportant\n\n\n\nYour access is read-only (r + l = read + list). The code here only ever reads and downloads — calls that would write or delete will fail with a permissions error, by design.\n\n\n→ Start with Set up.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Track B — Python</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/setup.html",
+    "href": "track-b/setup.html",
+    "title": "Step 1 — Set up",
+    "section": "",
+    "text": "You’ll need",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Step 1 — Set up</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/setup.html#youll-need",
+    "href": "track-b/setup.html#youll-need",
+    "title": "Step 1 — Set up",
+    "section": "",
+    "text": "Python 3.8 or newer. Check with:\npython --version\n(On some systems it’s python3 --version.)\nThe azure-storage-blob package — Microsoft’s official library for Azure Blob storage.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Step 1 — Set up</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/setup.html#install-the-library",
+    "href": "track-b/setup.html#install-the-library",
+    "title": "Step 1 — Set up",
+    "section": "Install the library",
+    "text": "Install the library\nIt’s good practice to install into a virtual environment so this workshop’s packages don’t clash with your other projects:\n# create and activate a virtual environment\npython -m venv .venv\n\n# macOS / Linux:\nsource .venv/bin/activate\n# Windows (PowerShell):\n.venv\\Scripts\\Activate.ps1\n\n# install the Azure Blob storage library\npip install azure-storage-blob\n\n\n\n\n\n\nTip\n\n\n\nWe’ll only need azure-storage-blob for the SAS-token approach in this workshop. If you later switch to Azure AD / Entra ID auth, you’d also install azure-identity (for DefaultAzureCredential). You don’t need it today.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Step 1 — Set up</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/setup.html#check-it-imports",
+    "href": "track-b/setup.html#check-it-imports",
+    "title": "Step 1 — Set up",
+    "section": "Check it imports",
+    "text": "Check it imports\nRun this to confirm the install worked:\nimport azure.storage.blob\nprint(azure.storage.blob.VERSION)\nIf that prints a version number without error, you’re ready.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Step 1 — Set up</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/setup.html#store-your-sas-url-safely",
+    "href": "track-b/setup.html#store-your-sas-url-safely",
+    "title": "Step 1 — Set up",
+    "section": "Store your SAS URL safely",
+    "text": "Store your SAS URL safely\nYou’ll use the SAS URL in your code on the next page. Don’t hard-code it into scripts you commit — the URL is the key, so anyone who sees it can read our data until it expires. A simple, safe pattern is an environment variable:\n# macOS / Linux\nexport AZURE_SAS_URL='https://PLACEHOLDER-STORAGE-ACCOUNT.blob.core.windows.net/PLACEHOLDER-CONTAINER-NAME?sp=rl&...&sig=PLACEHOLDER-SIGNATURE'\n\n# Windows (PowerShell)\n$env:AZURE_SAS_URL = 'https://PLACEHOLDER-STORAGE-ACCOUNT.blob.core.windows.net/PLACEHOLDER-CONTAINER-NAME?sp=rl&...&sig=PLACEHOLDER-SIGNATURE'\nWe’ll read it back with os.environ on the next page, so the secret never lives in your source code.\n\n\n\n\n\n\nTip\n\n\n\nThe bit of that URL after the ? is the SAS token. If you were ever given the token on its own instead of a full URL, store it the same way (e.g. in an AZURE_SAS_TOKEN variable) and the next page shows how to use either.\n\n\n→ Next: Authenticate.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Step 1 — Set up</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/authenticate.html",
+    "href": "track-b/authenticate.html",
+    "title": "Step 2 — Authenticate",
+    "section": "",
+    "text": "Connect with your SAS URL\nHere we connect to our storage using the read-only SAS URL from Prerequisites & access. Because the URL already points at our container, the library’s ContainerClient can use it directly.\n→ Next: List & download.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Step 2 — Authenticate</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/authenticate.html#connect-with-your-sas-url",
+    "href": "track-b/authenticate.html#connect-with-your-sas-url",
+    "title": "Step 2 — Authenticate",
+    "section": "",
+    "text": "import os\nfrom azure.storage.blob import ContainerClient\n\n# Read the SAS URL from an environment variable (see the Set up page), so the\n# secret never lives in your source code.\n#   export AZURE_SAS_URL='https://...blob.core.windows.net/&lt;container&gt;?sp=rl&...&sig=...'\nSAS_URL = os.environ[\"AZURE_SAS_URL\"]\n\n# The URL already includes the container and the credential, so this is all we need.\ncontainer = ContainerClient.from_container_url(SAS_URL)\n\nprint(f\"Connected to container: {container.container_name}\")\n\n\n\n\n\n\nTipGiven just the SAS token (not a full URL)?\n\n\n\nThe token is the part after the ?. If that’s all you have, pair it with the account and container names and let BlobServiceClient build the connection:\nimport os\nfrom azure.storage.blob import BlobServiceClient\n\nACCOUNT_NAME = \"PLACEHOLDER-STORAGE-ACCOUNT\"      # e.g. \"imagostorage\"\nCONTAINER_NAME = \"PLACEHOLDER-CONTAINER-NAME\"     # e.g. \"workshop-data\"\nSAS_TOKEN = os.environ[\"AZURE_SAS_TOKEN\"]         # starts with \"?sp=rl...\"\n\nservice = BlobServiceClient(\n    account_url=f\"https://{ACCOUNT_NAME}.blob.core.windows.net\",\n    credential=SAS_TOKEN,\n)\ncontainer = service.get_container_client(CONTAINER_NAME)\n\n\n\n\n\n\n\n\nNoteUsing Azure AD instead?\n\n\n\nIf your team uses Entra ID rather than a SAS URL, install azure-identity and swap the credential — point a client at the container and pass the credential:\nfrom azure.identity import DefaultAzureCredential\nfrom azure.storage.blob import ContainerClient\n\ncontainer = ContainerClient(\n    account_url=\"https://PLACEHOLDER-STORAGE-ACCOUNT.blob.core.windows.net\",\n    container_name=\"PLACEHOLDER-CONTAINER-NAME\",\n    credential=DefaultAzureCredential(),\n)\nFor this workshop, stick with the SAS URL.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Step 2 — Authenticate</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html",
+    "href": "track-b/list-download.html",
+    "title": "Step 3 — List & download",
+    "section": "",
+    "text": "List the files (blobs)\nYou’re connected (from Authenticate, you have a container client). Now let’s see what’s in the container and pull files down.\nlist_blobs() returns each blob’s name, size, last_modified, and more.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html#list-the-files-blobs",
+    "href": "track-b/list-download.html#list-the-files-blobs",
+    "title": "Step 3 — List & download",
+    "section": "",
+    "text": "# List every blob in the container.\nprint(\"Files in the container:\")\nfor blob in container.list_blobs():\n    size_kb = (blob.size or 0) / 1024\n    print(f\"  {blob.name}  ({size_kb:,.1f} KB)\")\n\n\n\n\n\n\n\nTip\n\n\n\nIf the container has a lot of files, filter by a name prefix instead of listing everything — this is the equivalent of opening one “folder”:\nfor blob in container.list_blobs(name_starts_with=\"reports/\"):\n    print(blob.name)",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html#download-one-file",
+    "href": "track-b/list-download.html#download-one-file",
+    "title": "Step 3 — List & download",
+    "section": "Download one file",
+    "text": "Download one file\nfrom pathlib import Path\n\nBLOB_NAME = \"PLACEHOLDER-EXAMPLE-FILE\"   # e.g. \"sample-data.csv\"\ndest = Path(\"downloads\") / BLOB_NAME\ndest.parent.mkdir(parents=True, exist_ok=True)\n\nblob_client = container.get_blob_client(BLOB_NAME)\n\nwith open(dest, \"wb\") as f:\n    download = blob_client.download_blob()\n    download.readinto(f)\n\nprint(f\"Downloaded {BLOB_NAME} -&gt; {dest}\")\ndownload_blob().readinto(f) streams the file straight to disk, so it works fine for large files without loading them all into memory.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html#read-a-files-contents-directly-no-saving",
+    "href": "track-b/list-download.html#read-a-files-contents-directly-no-saving",
+    "title": "Step 3 — List & download",
+    "section": "Read a file’s contents directly (no saving)",
+    "text": "Read a file’s contents directly (no saving)\nSometimes you just want the data in memory — e.g. load a CSV into pandas:\ndata = container.get_blob_client(\"PLACEHOLDER-EXAMPLE-FILE\").download_blob().readall()\nprint(f\"Read {len(data):,} bytes\")\n\n# Example: straight into pandas (requires `pip install pandas`)\n# import io, pandas as pd\n# df = pd.read_csv(io.BytesIO(data))\n# print(df.head())",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html#download-everything-in-the-container",
+    "href": "track-b/list-download.html#download-everything-in-the-container",
+    "title": "Step 3 — List & download",
+    "section": "Download everything in the container",
+    "text": "Download everything in the container\nfrom pathlib import Path\n\nout_dir = Path(\"downloads\")\n\nfor blob in container.list_blobs():\n    target = out_dir / blob.name\n    target.parent.mkdir(parents=True, exist_ok=True)   # preserve \"folder\" structure\n    with open(target, \"wb\") as f:\n        container.get_blob_client(blob.name).download_blob().readinto(f)\n    print(f\"Downloaded {blob.name}\")",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html#a-note-on-read-only",
+    "href": "track-b/list-download.html#a-note-on-read-only",
+    "title": "Step 3 — List & download",
+    "section": "A note on read-only",
+    "text": "A note on read-only\nEverything above only reads. If you try a write or delete — for example container.upload_blob(...) or blob_client.delete_blob() — it will fail with a permissions error (403), because your SAS URL doesn’t grant those rights. That’s the intended safety net: you can’t change or remove our data.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  },
+  {
+    "objectID": "track-b/list-download.html#youre-done",
+    "href": "track-b/list-download.html#youre-done",
+    "title": "Step 3 — List & download",
+    "section": "You’re done 🎉",
+    "text": "You’re done 🎉\nYou can now authenticate, list, and download from Azure storage in Python. Keep this page as a reference snippet bank.",
+    "crumbs": [
+      "Track B — Python (azure-storage-blob)",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Step 3 — List & download</span>"
+    ]
+  }
+]
