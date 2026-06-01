@@ -21,13 +21,5 @@ whichever suits them:
 - **Track B — Python:** for developers — using the `azure-storage-blob` SDK to
   authenticate, list contents, and download blobs, with runnable code.
 
-A shared **Prerequisites & access** page covers what we hand out and what
-read-only means, and a **Troubleshooting** page covers common errors and where to
-get help.
-
-> **Terminology note:** Azure calls things *storage account → container → blob*.
-> If you know the AWS/GCS words, that maps to *account → bucket → object*. The
-> material uses the Azure terms throughout.
-
 The design follows the same principles as Imago's other training material: avoid
 jargon and minimise cognitive load for a mixed-ability audience.
