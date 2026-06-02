@@ -6,5 +6,6 @@ _site
 /track-b/
 prerequisites.qmd
 index.qmd
+CLAUDE.md
 /.quarto/
 **/*.quarto_ipynb
